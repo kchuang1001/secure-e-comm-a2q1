@@ -17,8 +17,8 @@ function CheckoutPage(props) {
         <div>
           <h2>Payment Options</h2>
           <CustomGooglePayButton item={item}/>
-          <CustomPayPalButton />
-          <StripeCheckOutButton />
+          <CustomPayPalButton item={item}/>
+          <StripeCheckOutButton item={item}/>
         </div>
       </div>
     </div>

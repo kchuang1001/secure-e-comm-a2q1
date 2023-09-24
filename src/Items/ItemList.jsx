@@ -7,7 +7,7 @@ function ItemList(props) {
   return <>
     {props.itemList.map(
       (item) => {
-        return <div className="card item" key={item.itemName} >
+        return <div className="card item buy" key={item.itemName} >
           <Item 
             item={item}
           />

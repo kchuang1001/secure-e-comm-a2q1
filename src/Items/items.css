@@ -10,7 +10,7 @@
     display:flexbox
 }
 
-button {
+.buy button {
     background-color: red; /* Green */
     border: none;
     color: white;

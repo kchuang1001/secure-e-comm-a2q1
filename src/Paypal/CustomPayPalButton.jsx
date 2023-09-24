@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 // import PaymentFailure from "./PaymentFailure";
 // import PaymentSuccess from "./PaymentSuccess";
 
-function CustomPayPalButton() {
+function CustomPayPalButton(props) {
+  const { itemName, itemModel, itemDescription, itemPrice } = props.item;
   const paypal = useRef();
   const [transactionStatus, setTransactionStatus] = useState(null);
 
@@ -15,10 +16,10 @@ function CustomPayPalButton() {
               intent: "CAPTURE",
               purchase_units: [
                 {
-                  description: "MacBook Laptop",
+                  description: itemName,
                   amount: {
                     currency_code: "AUD",
-                    value: 350.00,
+                    value: itemPrice,
                   },
                 },
               ],

@@ -8,7 +8,10 @@ import {
 } from "@stripe/react-stripe-js";
 import Stripe from "stripe";
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
+  const { itemName, itemModel, itemDescription, itemPrice } = props.item;
+
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -33,12 +36,14 @@ const CheckoutForm = () => {
     // const res = await fetch('/create-intent', {
     //   method: 'POST',
     // });
+    // Since no backend is implemented, we are creating the paymentIntent from the client (bad practice)
     const stripeBack = Stripe("sk_test_51Nt0zyGc6sAjTpWE0XRWBre20fs7TDJvUign3c3z9T3YaHGMpqJig6OhEu7AasZKWYztMoWr7G8td6TWtmL4hxcl00H7voKJe9");
 
     const paymentIntent = await stripeBack.paymentIntents.create(
       {
-        amount: 50,
+        amount: itemPrice * 100,
         currency: "aud",
+        description: itemName
         // payment_method_types: ["card"],
       },
     );
@@ -82,19 +87,27 @@ const CheckoutForm = () => {
 
 const stripePromise = loadStripe("pk_test_51Nt0zyGc6sAjTpWEu2r3xyu5bHEV1hGe178czCEDrXx3DXbOk90FfRceS2naWnDNCT3tj1qkrHrvWRL0Bt0agy0k006lPNghLo");
 
-const options = {
-  mode: "payment",
-  amount: 50,
-  currency: "aud",
-  // Fully customizable with appearance API.
-  appearance: {
-    /*...*/
-  },
-};
+// const options = {
+//   mode: "payment",
+//   amount: 50,
+//   currency: "aud",
+//   // Fully customizable with appearance API.
+//   appearance: {
+//     /*...*/
+//   },
+// };
 
-const StripeCheckOutButton = () => (
-  <Elements stripe={stripePromise} options={options}>
-    <CheckoutForm />
+const StripeCheckOutButton = (props) => (
+  <Elements stripe={stripePromise} options={{
+    mode: "payment",
+    amount: props.item.itemPrice * 100,
+    currency: "aud",
+    // Fully customizable with appearance API.
+    appearance: {
+      /*...*/
+    },
+  }}>
+    <CheckoutForm item={props.item}/>
   </Elements>
 );
 
