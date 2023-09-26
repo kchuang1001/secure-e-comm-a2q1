@@ -1,5 +1,7 @@
 const express = require('express');
 const { chargeCreditCard } = require('./authorizenet');
+const { getAllItems } = require('./items');
+
 const cors = require('cors');
 const app = express();
 app.use(cors());
@@ -11,6 +13,10 @@ app.get('/', (req, res) => {
 
 app.get('/authorizenet', (req, res) => {
     chargeCreditCard((response) => {res.send(response)})
+})
+
+app.get('/get-all-items', (req, res) => {
+  res.send(getAllItems())
 })
 
 app.listen(PORT, () => {

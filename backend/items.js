@@ -45,6 +45,8 @@ const itemList = [
     },
   ];
 
-  export const getAllItems = () => {
-
+  const getAllItems = () => {
+    return itemList;
   }
+
+  module.exports.getAllItems=getAllItems;
